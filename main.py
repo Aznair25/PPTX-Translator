@@ -19,10 +19,10 @@ import threading
 # Load environment variables
 load_dotenv()
 
-# Initialize DeepSeek client
+# Initialize Groq client (free API)
 client = OpenAI(
-    api_key=os.getenv("DEEPSEEK_API_KEY"),
-    base_url="https://api.deepseek.com"
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1"
 )
 
 # Thread-safe translation cache
@@ -30,24 +30,29 @@ translation_cache: Dict[str, str] = {}
 cache_lock = threading.Lock()
 
 def translate_text(text: str, source_lang: str = 'zh', target_lang: str = 'en') -> str:
-    """Translate text from source_lang to target_lang using DeepSeek with chunking."""
+    """Translate text from source_lang to target_lang using Groq."""
+    text = text.strip()
+    if not text:
+        return text
     try:
-        if not text or text.isspace():
-            return text
         chunks = chunk_text(text)
         translated_chunks = []
         for chunk in chunks:
             response = client.chat.completions.create(
-                model="deepseek-chat",
+                model="llama-3.1-8b-instant",
                 messages=[
-                    {"role": "system", "content": f"You are a translator. Translate the following {source_lang} text to {target_lang}. Keep the formatting and maintain a natural, fluent translation."},
+                    {"role": "system", "content": f"You are a translator. Translate the following {source_lang} text to {target_lang}. Provide only the translated text without any additional comments, explanations, or formatting like asterisks or markdown. Maintain a natural, fluent translation."},
                     {"role": "user", "content": chunk}
                 ],
                 temperature=0.3,
                 stream=False
             )
-            translated_chunks.append(response.choices[0].message.content)
-        return ' '.join(translated_chunks)
+            translated_chunks.append(response.choices[0].message.content.strip())
+        translated = ' '.join(translated_chunks)
+        # If translated looks like fallback message, return original
+        if "provide the" in translated.lower() or "no text" in translated.lower():
+            return text
+        return translated
     except Exception as e:
         print(f"Translation error: {str(e)}")
         return text
@@ -79,7 +84,9 @@ def get_shape_properties(shape):
         'line_spacing': None,
         'space_before': None,
         'space_after': None,
-        'font_color': None
+        'font_color': None,
+        'bullet': None,
+        'level': None
     }
     if hasattr(shape, "text"):
         shape_data['text'] = shape.text.strip()
@@ -108,6 +115,10 @@ def get_shape_properties(shape):
                     shape_data['space_after'] = paragraph.space_after
                 if hasattr(paragraph, 'alignment'):
                     shape_data['alignment'] = f"PP_ALIGN.{paragraph.alignment}" if paragraph.alignment else None
+                if hasattr(paragraph, 'bullet'):
+                    shape_data['bullet'] = paragraph.bullet
+                if hasattr(paragraph, 'level'):
+                    shape_data['level'] = paragraph.level
     return shape_data
 
 def apply_shape_properties(shape, shape_data):
@@ -122,10 +133,8 @@ def apply_shape_properties(shape, shape_data):
         run = paragraph.add_run()
         run.text = shape_data['text']
         if shape_data['font_size']:
-            # reduce original font size by 30%
-            adjusted_size = shape_data['font_size'] * 0.7
-            run.font.size = Pt(adjusted_size)
-        run.font.name = 'Arial'
+            run.font.size = Pt(shape_data['font_size'])
+        run.font.name = shape_data['font_name'] or 'Arial'
         if shape_data.get('font_color'):
             run.font.color.rgb = RGBColor.from_string(shape_data['font_color'])
         if shape_data['bold'] is not None:
@@ -140,6 +149,10 @@ def apply_shape_properties(shape, shape_data):
             paragraph.space_before = shape_data['space_before']
         if shape_data['space_after']:
             paragraph.space_after = shape_data['space_after']
+        if shape_data.get('bullet') is not None:
+            paragraph.bullet = shape_data['bullet']
+        if shape_data.get('level') is not None:
+            paragraph.level = shape_data['level']
     except Exception as e:
         print(f"Error applying shape properties: {str(e)}")
 
@@ -163,7 +176,9 @@ def get_table_properties(table):
                 'margin_top': cell.margin_top,
                 'margin_bottom': cell.margin_bottom,
                 'vertical_anchor': str(cell.vertical_anchor) if cell.vertical_anchor else None,
-                'font_color': None
+                'font_color': None,
+                'bullet': None,
+                'level': None
             }
             if cell.text_frame.paragraphs:
                 paragraph = cell.text_frame.paragraphs[0]
@@ -184,6 +199,10 @@ def get_table_properties(table):
                         cell_data['font_color'] = str(run.font.color.rgb)
                 if hasattr(paragraph, 'alignment'):
                     cell_data['alignment'] = f"PP_ALIGN.{paragraph.alignment}" if paragraph.alignment else None
+                if hasattr(paragraph, 'bullet'):
+                    cell_data['bullet'] = paragraph.bullet
+                if hasattr(paragraph, 'level'):
+                    cell_data['level'] = paragraph.level
             row_data.append(cell_data)
         table_data['cells'].append(row_data)
     return table_data
@@ -205,9 +224,8 @@ def apply_table_properties(table, table_data):
                 run = paragraph.add_run()
                 run.text = cell_data['text']
                 if cell_data['font_size']:
-                    adjusted_size = cell_data['font_size'] * 0.8
-                    run.font.size = Pt(adjusted_size)
-                run.font.name = 'Arial'
+                    run.font.size = Pt(cell_data['font_size'])
+                run.font.name = cell_data['font_name'] or 'Arial'
                 if cell_data.get('font_color'):
                     run.font.color.rgb = RGBColor.from_string(cell_data['font_color'])
                 if 'bold' in cell_data:
@@ -216,6 +234,10 @@ def apply_table_properties(table, table_data):
                     run.font.italic = cell_data['italic']
                 if cell_data['alignment']:
                     paragraph.alignment = get_alignment_value(cell_data['alignment'])
+                if cell_data.get('bullet') is not None:
+                    paragraph.bullet = cell_data['bullet']
+                if cell_data.get('level') is not None:
+                    paragraph.level = cell_data['level']
             except Exception as e:
                 print(f"Error setting cell properties: {str(e)}")
 

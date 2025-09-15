@@ -1,0 +1,665 @@
+<?xml version="1.0" ?>
+<presentation file_path="Mental-Health-Matters_Presentation_French.pptx">
+  <slide number="1">
+    <text_element shape_index="0">
+      <properties>{
+  "text": "LA SANT\u00c9 MENTALE COMPTE",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 4860925,
+  "height": 1325563,
+  "left": 550862,
+  "top": 1511256,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="1">
+      <properties>{
+  "text": "Votre sous-titre pr\u00e9f\u00e9r\u00e9\nNom de votre organisation\nVotre logo \nOu toute autre information pertinente",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 4860000,
+  "height": 2383054,
+  "left": 550862,
+  "top": 3350997,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="2">
+    <text_element shape_index="1">
+      <properties>{
+  "text": "https://youtu.be/FDKnxU7BkG4",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 4860924,
+  "height": 268527,
+  "left": 550862,
+  "top": 6405734,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "Pourquoi la sant\u00e9 mentale compte ?",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 6027737,
+  "height": 1325563,
+  "left": 550863,
+  "top": 784747,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="3">
+      <properties>{
+  "text": "Des besoins r\u00e9els, urgents et vitaux\nUne cause majeure de handicap dans le monde\n80 % des personnes souffrant de troubles mentaux n'ont \u00e0 leur disposition aucune \u000bforme d'aide ou de soins qui soient \u00e0 la fois \u000bde qualit\u00e9 et accessibles.\nDes effets profonds \u00e0 long terme\nDes personnes, des familles, des \u000bcommunaut\u00e9s et des soci\u00e9t\u00e9s enti\u00e8res \u000btouch\u00e9es",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 6357938,
+  "height": 3241675,
+  "left": 550862,
+  "top": 2492375,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="3">
+    <text_element shape_index="1">
+      <properties>{
+  "text": "Une politique du Mouvement \nune r\u00e9ponse plus harmonis\u00e9e, holistique, int\u00e9gr\u00e9e et adapt\u00e9e au contexte\nassurer la qualit\u00e9 et fournir des \u000borientations g\u00e9n\u00e9rales\nUne r\u00e9solution entre les \u00c9tats et le Mouvement\nune r\u00e9ponse collective mise \u00e0 l'\u00e9chelle\nsoutenir les efforts conjoints et coh\u00e9rents visant \u00e0 combler les lacunes",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 5764213,
+  "height": 3889375,
+  "left": 550861,
+  "top": 2505075,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "Engagements du Mouvement \u000ben mati\u00e8re de SMSPS",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 11090275,
+  "height": 655433,
+  "left": 550863,
+  "top": 1445147,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="4">
+    <text_element shape_index="0">
+      <properties>{
+  "text": "Toutes les Soci\u00e9t\u00e9s nationales, \u000bla FICR et le CICR\nTous les contextes o\u00f9 le Mouvement op\u00e8re\nUn cadre en SMSPS, et huit d\u00e9clarations de principes",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 4645977,
+  "height": 3168650,
+  "left": 1259523,
+  "top": 2565400,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="1">
+      <properties>{
+  "text": "Toutes les Soci\u00e9t\u00e9s nationales, \u000bla FICR, le CICR et les \u00c9tats\nConflits arm\u00e9s, catastrophes \u000bnaturelles et autres situations d'urgence uniquement\nUn appel \u00e0 l'action, et un accent mis \u000bsur les mesures pratiques",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 5292725,
+  "height": 3168650,
+  "left": 6393604,
+  "top": 2565400,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "Politique",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 5292725,
+  "height": 655433,
+  "left": 1259523,
+  "top": 1735729,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="3">
+      <properties>{
+  "text": "R\u00e9solution",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 5293254,
+  "height": 655433,
+  "left": 6393605,
+  "top": 1735729,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="5">
+    <text_element shape_index="1">
+      <properties>{
+  "text": "R\u00e9ponse renforc\u00e9e du Mouvement \u000baux besoins en SMSPS\nAssurer la qualit\u00e9\nDonner une orientation g\u00e9n\u00e9rale\nLes besoins en mati\u00e8re de SMSPS \u000bsont trait\u00e9s conform\u00e9ment : \nau mandat et au r\u00f4le\naux besoins et aux lacunes identifi\u00e9s\naux ressources, aux capacit\u00e9s et \u00e0 l'expertise",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 6464301,
+  "height": 3889375,
+  "left": 550861,
+  "top": 1844675,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "https://youtu.be/3jrgzGlt0yE",
+  "font_size": 18.0,
+  "font_name": "+mn-lt",
+  "alignment": null,
+  "width": 5653086,
+  "height": 312288,
+  "left": 550862,
+  "top": 6073253,
+  "bold": false,
+  "italic": false,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": 76200,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="3">
+      <properties>{
+  "text": "La politique",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 11090275,
+  "height": 655433,
+  "left": 550863,
+  "top": 784747,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="6">
+    <text_element shape_index="0">
+      <properties>{
+  "text": "Garantir un acc\u00e8s impartial aux services de \u000bsant\u00e9 mentale et de soutien psychosocial, \u000bet mettre l'accent sur la pr\u00e9vention et sur \u000bune action rapide\nGarantir un soutien et des soins complets et int\u00e9gr\u00e9s aux personnes ayant des besoins en mati\u00e8re de sant\u00e9 mentale et de soutien psychosocial\nReconna\u00eetre la r\u00e9silience, la participation et la diversit\u00e9 des personnes dans toutes les activit\u00e9s de sant\u00e9 mentale et de soutien psychosocial\nAssurer la protection de la s\u00e9curit\u00e9, de la \u000bdignit\u00e9 et des droits",
+  "font_size": 22.0,
+  "font_name": null,
+  "alignment": null,
+  "width": 5911321,
+  "height": 3889374,
+  "left": 550863,
+  "top": 1783716,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="1">
+      <properties>{
+  "text": "S'attaquer au probl\u00e8me de la stigmatisation, de l'exclusion et de la discrimination\nMettre en \u0153uvre et contribuer \u00e0 l'\u00e9laboration d'interventions fond\u00e9es sur \u000bdes normes et des pratiques de sant\u00e9 mentale et de soutien psychosocial internationalement reconnues et fond\u00e9es sur des donn\u00e9es probantes \nProt\u00e9ger la sant\u00e9 mentale et le bien-\u00eatre psychosocial du personnel et des b\u00e9n\u00e9voles\nD\u00e9velopper les capacit\u00e9s en mati\u00e8re de sant\u00e9 mentale et de soutien psychosocial",
+  "font_size": 22.0,
+  "font_name": null,
+  "alignment": null,
+  "width": 5442945,
+  "height": 3889374,
+  "left": 6462184,
+  "top": 1783716,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "https://pscentre.org/movement-resource-room-mhpss-policy-and-resolution/",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 8364537,
+  "height": 307671,
+  "left": 550863,
+  "top": 6315006,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": 76200,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="3">
+      <properties>{
+  "text": "Les huit d\u00e9clarations de principes",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 11090275,
+  "height": 655433,
+  "left": 550863,
+  "top": 784747,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="7">
+    <text_element shape_index="0">
+      <properties>{
+  "text": "Le cadre SMSPS du Mouvement",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 5240337,
+  "height": 1325563,
+  "left": 550863,
+  "top": 784747,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="1">
+      <properties>{
+  "text": "4 niveaux, et un cercle de protection\nSe concentrer sur les comp\u00e9tences \u000bet la supervision\nToutes les Soci\u00e9t\u00e9s Nationales, \u000bla FICR et le CICR doivent pouvoir :\n\u00c9valuer les besoins\nPlaider en faveur de la SMSPS\nOrienter vers des services appropri\u00e9s",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 5013030,
+  "height": 3241675,
+  "left": 550862,
+  "top": 2492375,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "https://youtu.be/AZjo2zhDkcM",
+  "font_size": 18.0,
+  "font_name": "+mn-lt",
+  "alignment": null,
+  "width": 4860924,
+  "height": 268527,
+  "left": 550864,
+  "top": 6207429,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="8">
+    <text_element shape_index="0">
+      <properties>{
+  "text": "Sign\u00e9e par 196 \u00c9tats signataires des Conventions de Gen\u00e8ve\nAppel \u00e0 une action conjointe et coh\u00e9sive entre les \u00c9tats, le Mouvement et les autres parties prenantes\nAdapt\u00e9e au contexte des conflits arm\u00e9s, des catastrophes naturelles et autres situations d'urgence\nLes besoins en mati\u00e8re de SMSPS augmentent souvent dans ces situations",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 4860926,
+  "height": 3889375,
+  "left": 550862,
+  "top": 1844675,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "La r\u00e9solution",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 11090275,
+  "height": 655433,
+  "left": 550863,
+  "top": 784747,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="9">
+    <text_element shape_index="1">
+      <properties>{
+  "text": "Garantir, suffisamment t\u00f4t et sur la dur\u00e9e, l'acc\u00e8s \u00e0 un soutien psychosocial et en mati\u00e8re de sant\u00e9 mentale pour \u000bles populations touch\u00e9es par des situations d'urgence\nRenforcer l'action locale et communautaire et la coop\u00e9ration entre les Soci\u00e9t\u00e9s nationales et les \u00c9tats\nS'assurer que les r\u00e9ponses sont compl\u00e8tes et incluent un soutien psychosocial, psychologique et sp\u00e9cialis\u00e9 en sant\u00e9 mentale\nInt\u00e9grer le soutien psychosocial et dans le domaine de \u000bla sant\u00e9 mentale dans toutes les activit\u00e9s consacr\u00e9es aux besoins humanitaires tels que les soins de sant\u00e9, l'\u00e9ducation \u000bet la protection\nRenforcer le personnel sp\u00e9cialis\u00e9 dans la sant\u00e9 mentale et \u000ble soutien psychosociale, y compris les volontaires  \nLutter contre la stigmatisation, l'exclusion et la discrimination \nProt\u00e9ger la sant\u00e9 mentale et le bien-\u00eatre psychosocial \u000bdu personnel et des b\u00e9n\u00e9voles",
+  "font_size": 21.0,
+  "font_name": null,
+  "alignment": null,
+  "width": 7309145,
+  "height": 5543550,
+  "left": 4587240,
+  "top": 711015,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "https://youtu.be/h0oB3vR_CiY",
+  "font_size": 18.0,
+  "font_name": "+mn-lt",
+  "alignment": null,
+  "width": 4234497,
+  "height": 268527,
+  "left": 550863,
+  "top": 6207429,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="3">
+      <properties>{
+  "text": "La r\u00e9solution",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 4234497,
+  "height": 655433,
+  "left": 550863,
+  "top": 579007,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="10">
+    <text_element shape_index="0">
+      <properties>{
+  "text": "",
+  "font_size": null,
+  "font_name": null,
+  "alignment": "PP_ALIGN.CENTER (2)",
+  "width": 4919330,
+  "height": 2489424,
+  "left": 2210648,
+  "top": 2820251,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="1">
+      <properties>{
+  "text": "Domaines d'action prioritaires : \nGarantir un niveau \u00e9l\u00e9mentaire de soutien psychosocial et int\u00e9grer la sant\u00e9 mentale et \u000ble soutien psychosocial \u00e0 travers les diff\u00e9rents secteurs \n\u00c9laborer une approche holistique en mati\u00e8re \u000bde SMSPS entre les diff\u00e9rentes composantes \u000bdu Mouvement et en collaboration avec les \u000bautres acteurs \nProt\u00e9ger et favoriser la sant\u00e9 mentale et le \u000bbien-\u00eatre psychosocial du personnel et des volontaires \nD\u00e9montrer l'impact des interventions en \u000bmati\u00e8re de SMSPS par le biais d'\u00e9tudes, de \u000bpreuves, de contr\u00f4les et d'\u00e9valuations \nRenforcer la mobilisation de ressources pour \u000bla SMSPS dans la r\u00e9ponse humanitaire \nMobiliser le soutien politique en faveur de\u000bla SMSPS \u2013 la diplomatie humanitaire et le \u000bplaidoyer",
+  "font_size": 15.5,
+  "font_name": null,
+  "alignment": null,
+  "width": 4562157,
+  "height": 4535486,
+  "left": 550863,
+  "top": 1589089,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "Les r\u00e9sultats escompt\u00e9s d'ici la fin 2023 sont les suivants :\n\u00c9tablissement d'un niveau \u00e9l\u00e9mentaire de soutien psychosocial \u000bdans les Soci\u00e9t\u00e9s Nationales, la FICR et le CICR, et int\u00e9gration des \u000baspects \u00e0 prendre en consid\u00e9ration dans la SMSPS \u00e0 d'autres \u000bservices humanitaires cl\u00e9s \nFacilitation de l'acc\u00e8s aux services de SMSPS de qualit\u00e9 dans \u000bl'ensemble du cadre d'action du Mouvement en \u000bmati\u00e8re de SMSPS2 dans les contextes \u000bop\u00e9rationnels choisis\nAtteinte d'un environnement de travail favorable \u000bet bienveillant et maintien de ce dernier dans \u000bl'ensemble du Mouvement  \nPlus large documentation de l'impact des interventions et des \u000bapproches innovantes en mati\u00e8re de SMSPS \nHausse des ressources financi\u00e8res du Mouvement d\u00e9di\u00e9es \u00e0 la SMSPS \u000ben tenant compte des objectifs de financement d\u00e9finis dans une \u000bstrat\u00e9gie de mobilisation des ressources du Mouvement pour la SMSPS \nReprise des engagements expos\u00e9s dans la r\u00e9solution 2 au sein \u000bde la politique nationale et internationale et des cadres \u000bjuridiques",
+  "font_size": 15.5,
+  "font_name": null,
+  "alignment": null,
+  "width": 6527589,
+  "height": 4535486,
+  "left": 4884420,
+  "top": 1589089,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 1
+}</properties>
+    </text_element>
+    <text_element shape_index="3">
+      <properties>{
+  "text": "Une feuille de route pour la mise en \u0153uvre des engagements entre 2020 et 2023",
+  "font_size": 40.0,
+  "font_name": null,
+  "alignment": null,
+  "width": 11090275,
+  "height": 655433,
+  "left": 550863,
+  "top": 779348,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+  </slide>
+  <slide number="11">
+    <text_element shape_index="0">
+      <properties>{
+  "text": "Ressources",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 11090275,
+  "height": 655433,
+  "left": 550863,
+  "top": 784747,
+  "bold": null,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+    <text_element shape_index="2">
+      <properties>{
+  "text": "Directives du CICR\u00a0sur \u000bla SMSPS (arabe, anglais, \u000bfran\u00e7ais, espagnol)\nCentre de R\u00e9f\u00e9rence pour \u000ble soutien psychosocial \u000b(Centre pour le SPS) de la FICR \u000b\u00e0 l'adresse pscentre.org  \nSite du Centre pour le SPS. \u000bRechercher \u00ab\u00a0Ressources\u00a0\u00bb \u000bsurle site Internet du Centre \u000bpour le SPS",
+  "font_size": null,
+  "font_name": null,
+  "alignment": null,
+  "width": 4860926,
+  "height": 3889375,
+  "left": 550862,
+  "top": 1844675,
+  "bold": false,
+  "italic": null,
+  "line_spacing": null,
+  "space_before": null,
+  "space_after": null,
+  "font_color": null,
+  "bullet": null,
+  "level": 0
+}</properties>
+    </text_element>
+  </slide>
+</presentation>
