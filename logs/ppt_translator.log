@@ -169,3 +169,95 @@
 2025-09-19 21:31:11,712 - __main__ - INFO - Translated PowerPoint saved to: /home/zylo/Documents/VS Code/PPT-Translator-Formatting-Intact-with-Deepseek/powerpoint-slides-2_translated.pptx
 2025-09-19 21:31:11,715 - __main__ - INFO - Cleanup complete.
 2025-09-19 21:31:11,715 - __main__ - INFO - === Translation Complete ===
+2025-09-19 22:17:58,143 - __main__ - INFO - === PowerPoint Translator with OCR Support ===
+2025-09-19 22:17:58,143 - __main__ - INFO - OCR Available: Yes
+2025-09-19 22:18:10,461 - __main__ - INFO - OCR Settings:
+2025-09-19 22:18:10,461 - __main__ - INFO - - Text confidence threshold: 30%
+2025-09-19 22:18:10,461 - __main__ - INFO - - Will extract text from images and translate it
+2025-09-19 22:18:10,462 - __main__ - INFO - - Translated text will be overlaid back onto images
+2025-09-19 22:18:10,462 - __main__ - INFO - Processing file: /home/zylo/Documents/VS Code/PPT-Translator-Formatting-Intact-with-Deepseek/powerpoint-slides-1.pptx
+2025-09-19 22:18:10,462 - __main__ - INFO - Generating original XML for powerpoint-slides-1.pptx...
+2025-09-19 22:18:11,171 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:11,204 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:11,205 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:11,363 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:11,556 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:11,732 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:11,893 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:11,951 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:11,980 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:12,095 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:12,466 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:12,515 - __main__ - WARNING - Skipping WMF format image (not supported for OCR)
+2025-09-19 22:18:12,516 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:12,619 - __main__ - INFO - Original XML saved: /home/zylo/Documents/VS Code/PPT-Translator-Formatting-Intact-with-Deepseek/powerpoint-slides-1_original.xml
+2025-09-19 22:18:12,620 - __main__ - INFO - Generating translated XML (from en to fr) for powerpoint-slides-1.pptx...
+2025-09-19 22:18:14,034 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:14,443 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:14,575 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:14,658 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:14,697 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:14,954 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:14,972 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:15,262 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:15,571 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:15,602 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:15,827 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:15,850 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:16,286 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:16,604 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:16,619 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:16,925 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:16,948 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:17,118 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:17,390 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:17,718 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:17,756 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:17,812 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:17,832 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:18,643 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:18,645 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:18,647 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:19,074 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:19,180 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:19,266 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:19,741 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:19,774 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:19,919 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:20,063 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:20,197 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:20,279 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:20,356 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:20,510 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:21,100 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:21,101 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:21,138 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:21,503 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:22,023 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:22,114 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:23,147 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:24,181 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-19 22:18:24,654 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:24,657 - __main__ - WARNING - Skipping WMF format image (not supported for OCR)
+2025-09-19 22:18:24,657 - __main__ - INFO - Extracted 0 text regions from image
+2025-09-19 22:18:24,740 - __main__ - INFO - Translated XML saved: /home/zylo/Documents/VS Code/PPT-Translator-Formatting-Intact-with-Deepseek/powerpoint-slides-1_translated.xml
+2025-09-19 22:18:24,741 - __main__ - INFO - Creating translated PPT for powerpoint-slides-1.pptx...
+2025-09-19 22:18:24,872 - __main__ - INFO - Adjusted font size from 20.0pt to 16.0pt (text 1.2x longer)
+2025-09-19 22:18:24,906 - __main__ - INFO - Adjusted font size from 20.0pt to 16.0pt (text 1.2x longer)
+2025-09-19 22:18:24,925 - __main__ - INFO - Adjusted font size from 32.0pt to 16.0pt (text 2.5x longer)
+2025-09-19 22:18:25,185 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,190 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,195 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,202 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,208 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,214 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,219 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,226 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,231 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,409 - __main__ - INFO - Adjusted font size from 23.99pt to 16.9pt (text 1.8x longer)
+2025-09-19 22:18:25,414 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.5x longer)
+2025-09-19 22:18:25,416 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,433 - __main__ - INFO - Adjusted font size from 16.0pt to 12.8pt (text 1.3x longer)
+2025-09-19 22:18:25,656 - __main__ - INFO - Translated PowerPoint saved to: /home/zylo/Documents/VS Code/PPT-Translator-Formatting-Intact-with-Deepseek/powerpoint-slides-1_translated.pptx
+2025-09-19 22:18:25,659 - __main__ - INFO - Cleanup complete.
+2025-09-19 22:18:25,659 - __main__ - INFO - === Translation Complete ===
