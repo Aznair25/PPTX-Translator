@@ -1,5 +1,9 @@
 openai
-python-pptx>=0.6.21
+python-pptx
 python-dotenv
 pyyaml
 aiohttp
+pytesseract
+Pillow
+opencv-python
+numpy
