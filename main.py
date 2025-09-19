@@ -1,39 +1,65 @@
+import os
+import io
+import json
+import sys
+import threading
+import logging
+import base64
+import tempfile
+from pathlib import Path
+from xml.dom import minidom
+import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
+from typing import Dict, Optional, List, Tuple
+
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Pt
 from pptx.dml.color import RGBColor
-import xml.etree.ElementTree as ET
-from xml.dom import minidom
-import argparse
-import os
-import json
 from openai import OpenAI
 from dotenv import load_dotenv
-from pathlib import Path
-import sys
-from concurrent.futures import ThreadPoolExecutor
-from typing import Dict, Optional, List, Tuple
-import threading
-import io
-import base64
-import tempfile
+
+# OCR-related imports (optional)
 try:
     import pytesseract
     import cv2
     import numpy as np
     from PIL import Image, ImageDraw, ImageFont
     
-    # Set Tesseract data path
-    import os
     if not os.environ.get('TESSDATA_PREFIX'):
         os.environ['TESSDATA_PREFIX'] = '/usr/share/tessdata'
     
     OCR_AVAILABLE = True
 except ImportError:
     OCR_AVAILABLE = False
-    print("Warning: OCR libraries not installed. Image text extraction will be skipped.")
-    print("Install with: pip install pytesseract Pillow opencv-python numpy")
+
+# Setup logging
+def setup_logging():
+    """Configure logging to write to both console and file."""
+    log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    
+    # Create logs directory if it doesn't exist
+    logs_dir = Path('logs')
+    logs_dir.mkdir(exist_ok=True)
+    
+    # Configure logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format=log_format,
+        handlers=[
+            logging.FileHandler(logs_dir / 'ppt_translator.log'),
+            logging.StreamHandler()
+        ]
+    )
+    
+    return logging.getLogger(__name__)
+
+logger = setup_logging()
+
+if not OCR_AVAILABLE:
+    logger.warning("OCR libraries not installed. Image text extraction will be skipped.")
+    logger.info("Install with: pip install pytesseract Pillow opencv-python numpy")
 
 # Load environment variables
 load_dotenv()
@@ -57,7 +83,7 @@ def extract_image_from_shape(shape) -> Optional[bytes]:
             return shape.part.blob
         return None
     except Exception as e:
-        print(f"Error extracting image from shape: {str(e)}")
+        logger.error(f"Error extracting image from shape: {str(e)}")
         return None
 
 def perform_ocr_on_image(image_bytes: bytes) -> List[Dict]:
@@ -71,7 +97,7 @@ def perform_ocr_on_image(image_bytes: bytes) -> List[Dict]:
         
         # Handle different image formats
         if image.format in ['WMF', 'EMF']:
-            print(f"Skipping {image.format} format image (not supported for OCR)")
+            logger.warning(f"Skipping {image.format} format image (not supported for OCR)")
             return []
         
         # Convert to RGB if necessary
@@ -80,7 +106,7 @@ def perform_ocr_on_image(image_bytes: bytes) -> List[Dict]:
         
         # Check if image is large enough for OCR
         if image.width < 50 or image.height < 50:
-            print(f"Image too small for OCR ({image.width}x{image.height})")
+            logger.debug(f"Image too small for OCR ({image.width}x{image.height})")
             return []
         
         # Convert PIL to OpenCV format
@@ -127,16 +153,16 @@ def perform_ocr_on_image(image_bytes: bytes) -> List[Dict]:
                 text_blocks.append(text_block)
         
         if text_blocks:
-            print(f"Found {len(text_blocks)} text blocks in image ({image.width}x{image.height})")
+            logger.info(f"Found {len(text_blocks)} text blocks in image ({image.width}x{image.height})")
             for block in text_blocks:
-                print(f"  '{block['text']}' (confidence: {block['confidence']}%)")
+                logger.debug(f"  '{block['text']}' (confidence: {block['confidence']}%)")
         
         # Group text blocks by level to form coherent text regions
         grouped_blocks = group_text_blocks(text_blocks)
         return grouped_blocks
         
     except Exception as e:
-        print(f"Error performing OCR: {str(e)}")
+        logger.error(f"Error performing OCR: {str(e)}")
         return []
 
 def group_text_blocks(text_blocks: List[Dict]) -> List[Dict]:
@@ -252,7 +278,7 @@ def overlay_text_on_image(image_bytes: bytes, text_regions: List[Dict]) -> bytes
         return output_buffer.getvalue()
         
     except Exception as e:
-        print(f"Error overlaying text on image: {str(e)}")
+        logger.error(f"Error overlaying text on image: {str(e)}")
         return image_bytes
 
 def estimate_font_size(text: str, width: int, height: int) -> int:
@@ -288,7 +314,7 @@ def estimate_background_color(image: Image.Image, x: int, y: int, width: int, he
             return most_common_color
         
     except Exception as e:
-        print(f"Error estimating background color: {str(e)}")
+        logger.error(f"Error estimating background color: {str(e)}")
     
     # Default to white background
     return (255, 255, 255)
@@ -327,7 +353,7 @@ def translate_text(text: str, source_lang: str = 'zh', target_lang: str = 'en') 
                     if "rate_limit_exceeded" in str(e) and attempt < max_retries - 1:
                         import time
                         wait_time = 2 ** attempt  # Exponential backoff: 1s, 2s, 4s
-                        print(f"Rate limit hit, waiting {wait_time}s before retry...")
+                        logger.warning(f"Rate limit hit, waiting {wait_time}s before retry...")
                         time.sleep(wait_time)
                     else:
                         raise e  # Re-raise if not rate limit or max retries reached
@@ -345,7 +371,7 @@ def translate_text(text: str, source_lang: str = 'zh', target_lang: str = 'en') 
         return translated
         
     except Exception as e:
-        print(f"Translation error: {str(e)}")
+        logger.error(f"Translation error: {str(e)}")
         return text
 
 def get_alignment_value(alignment_str):
@@ -442,7 +468,7 @@ def get_shape_properties(shape):
                                     shape_data['font_color'] = run_data['font_color']
                                     shape_data['font_color_type'] = run_data['font_color_type']
                             except Exception as e:
-                                print(f"Warning: Could not extract color from run: {e}")
+                                logger.warning(f"Could not extract color from run: {e}")
                         
                         shape_data['runs_data'].append(run_data)
                 
@@ -511,7 +537,7 @@ def apply_shape_properties(shape, shape_data):
                     # Default fallback
                     run.font.color.rgb = RGBColor.from_string(shape_data['font_color'])
             except Exception as e:
-                print(f"Warning: Could not apply font color {shape_data['font_color']}: {e}")
+                logger.warning(f"Could not apply font color {shape_data['font_color']}: {e}")
                 # Fallback to black text
                 run.font.color.rgb = RGBColor(0, 0, 0)
         
@@ -536,7 +562,7 @@ def apply_shape_properties(shape, shape_data):
             paragraph.level = shape_data['level']
             
     except Exception as e:
-        print(f"Error applying shape properties: {str(e)}")
+        logger.error(f"Error applying shape properties: {str(e)}")
 
 def calculate_fitted_font_size(translated_text: str, original_length: int, original_font_size: float, shape_width: int, shape_height: int) -> float:
     """Calculate appropriate font size to fit translated text within shape boundaries."""
@@ -556,7 +582,7 @@ def calculate_fitted_font_size(translated_text: str, original_length: int, origi
             # Don't go below 8pt or above original size
             adjusted_size = max(8, min(adjusted_size, original_font_size))
             
-            print(f"Adjusted font size from {original_font_size}pt to {adjusted_size:.1f}pt (text {length_ratio:.1f}x longer)")
+            logger.info(f"Adjusted font size from {original_font_size}pt to {adjusted_size:.1f}pt (text {length_ratio:.1f}x longer)")
             return adjusted_size
         elif length_ratio < 0.7:  # 30% shorter
             # Slightly increase font size for much shorter text
@@ -566,14 +592,14 @@ def calculate_fitted_font_size(translated_text: str, original_length: int, origi
             # Don't exceed 150% of original size
             adjusted_size = min(adjusted_size, original_font_size * 1.5)
             
-            print(f"Adjusted font size from {original_font_size}pt to {adjusted_size:.1f}pt (text {length_ratio:.1f}x shorter)")
+            logger.info(f"Adjusted font size from {original_font_size}pt to {adjusted_size:.1f}pt (text {length_ratio:.1f}x shorter)")
             return adjusted_size
         
         # For similar lengths, keep original size
         return original_font_size
         
     except Exception as e:
-        print(f"Error calculating fitted font size: {e}")
+        logger.error(f"Error calculating fitted font size: {e}")
         return original_font_size
 
 def get_image_properties(shape):
@@ -598,10 +624,10 @@ def get_image_properties(shape):
             if OCR_AVAILABLE:
                 ocr_regions = perform_ocr_on_image(image_bytes)
                 image_data['ocr_regions'] = ocr_regions
-                print(f"Extracted {len(ocr_regions)} text regions from image")
+                logger.info(f"Extracted {len(ocr_regions)} text regions from image")
             
     except Exception as e:
-        print(f"Error processing image shape: {str(e)}")
+        logger.error(f"Error processing image shape: {str(e)}")
     
     return image_data
 
@@ -628,10 +654,10 @@ def apply_image_properties(shape, image_data):
                 
                 # Save modified image to temporary file and replace in shape
                 replace_image_in_shape(shape, modified_image_bytes)
-                print(f"Applied translations to {len(regions_with_translation)} text regions in image")
+                logger.info(f"Applied translations to {len(regions_with_translation)} text regions in image")
         
     except Exception as e:
-        print(f"Error applying image properties: {str(e)}")
+        logger.error(f"Error applying image properties: {str(e)}")
 
 def replace_image_in_shape(shape, new_image_bytes: bytes):
     """Replace the image in a PowerPoint shape with new image data."""
@@ -661,15 +687,15 @@ def replace_image_in_shape(shape, new_image_bytes: bytes):
                     # Replace the image data in the existing relationship
                     image_part = slide_part.rels[rel_id].target_part
                     image_part._blob = new_image_bytes
-                    print("Successfully replaced image in shape")
+                    logger.debug("Successfully replaced image in shape")
             
         finally:
             # Clean up temporary file
             os.unlink(temp_path)
             
     except Exception as e:
-        print(f"Warning: Could not replace image in shape: {str(e)}")
-        print("Image with translated text has been processed but may not appear in final PowerPoint")
+        logger.warning(f"Could not replace image in shape: {str(e)}")
+        logger.info("Image with translated text has been processed but may not appear in final PowerPoint")
 
 def get_table_properties(table):
     """Extract complete table properties."""
@@ -720,8 +746,7 @@ def get_table_properties(table):
                                 cell_data['font_color'] = str(run.font.color.theme_color)
                                 cell_data['font_color_type'] = 'theme'
                         except Exception as e:
-                            print(f"Warning: Could not extract cell color: {e}")
-                
+                            logger.warning(f"Could not extract cell color: {e}")
                 if hasattr(paragraph, 'alignment'):
                     cell_data['alignment'] = f"PP_ALIGN.{paragraph.alignment}" if paragraph.alignment else None
                 if hasattr(paragraph, 'bullet'):
@@ -784,7 +809,7 @@ def apply_table_properties(table, table_data):
                         else:
                             run.font.color.rgb = RGBColor.from_string(cell_data['font_color'])
                     except Exception as e:
-                        print(f"Warning: Could not apply cell font color: {e}")
+                        logger.warning(f"Could not apply cell font color: {e}")
                         run.font.color.rgb = RGBColor(0, 0, 0)
                 
                 if 'bold' in cell_data:
@@ -798,9 +823,9 @@ def apply_table_properties(table, table_data):
                 if cell_data.get('level') is not None:
                     paragraph.level = cell_data['level']
             except Exception as e:
-                print(f"Error setting cell properties: {str(e)}")
+                logger.error(f"Error setting cell properties: {str(e)}")
 
-def extract_shapes_recursively(shapes, slide_element, shape_path="", translate=False):
+def extract_shapes_recursively(shapes, slide_element, shape_path="", translate=False, source_lang='zh', target_lang='en'):
     """Recursively extract shapes including those within groups."""
     for shape_index, shape in enumerate(shapes):
         current_path = f"{shape_path}.{shape_index}" if shape_path else str(shape_index)
@@ -812,12 +837,12 @@ def extract_shapes_recursively(shapes, slide_element, shape_path="", translate=F
             if translate:
                 for row in table_data['cells']:
                     for cell in row:
-                        cell['text'] = translate_text(cell['text'])
+                        cell['text'] = translate_text(cell['text'], source_lang, target_lang)
             props_element = ET.SubElement(table_element, "properties")
             props_element.text = json.dumps(table_data, indent=2)
             
         elif shape.shape_type == MSO_SHAPE_TYPE.PICTURE:
-            print(f"Found PICTURE shape at path: {current_path}")
+            logger.debug(f"Found PICTURE shape at path: {current_path}")
             image_element = ET.SubElement(slide_element, "image_element")
             image_element.set("shape_index", current_path)
             image_data = get_image_properties(shape)
@@ -825,36 +850,36 @@ def extract_shapes_recursively(shapes, slide_element, shape_path="", translate=F
                 # Translate OCR-extracted text
                 for region in image_data['ocr_regions']:
                     if region.get('text'):
-                        region['translated_text'] = translate_text(region['text'])
-                        print(f"Translated: '{region['text']}' -> '{region['translated_text']}'")
+                        region['translated_text'] = translate_text(region['text'], source_lang, target_lang)
+                        logger.debug(f"Translated: '{region['text']}' -> '{region['translated_text']}'")
             props_element = ET.SubElement(image_element, "properties")
             props_element.text = json.dumps(image_data, indent=2)
             
         elif shape.shape_type == MSO_SHAPE_TYPE.GROUP:
-            print(f"Processing GROUP shape at path: {current_path} with {len(shape.shapes)} sub-shapes")
+            logger.debug(f"Processing GROUP shape at path: {current_path} with {len(shape.shapes)} sub-shapes")
             # Recursively process shapes within the group
-            extract_shapes_recursively(shape.shapes, slide_element, current_path, translate)
+            extract_shapes_recursively(shape.shapes, slide_element, current_path, translate, source_lang, target_lang)
             
         elif hasattr(shape, "text"):
             text_element = ET.SubElement(slide_element, "text_element")
             text_element.set("shape_index", current_path)
             shape_data = get_shape_properties(shape)
             if translate:
-                shape_data['text'] = translate_text(shape_data['text'])
+                shape_data['text'] = translate_text(shape_data['text'], source_lang, target_lang)
             props_element = ET.SubElement(text_element, "properties")
             props_element.text = json.dumps(shape_data, indent=2)
 
-def extract_text_from_slide(slide, slide_number, translate=False):
+def extract_text_from_slide(slide, slide_number, translate=False, source_lang='zh', target_lang='en'):
     """Extract all text elements from a slide."""
     slide_element = ET.Element("slide")
     slide_element.set("number", str(slide_number))
     
     # Use recursive extraction to handle nested shapes in groups
-    extract_shapes_recursively(slide.shapes, slide_element, "", translate)
+    extract_shapes_recursively(slide.shapes, slide_element, "", translate, source_lang, target_lang)
     
     return slide_element
 
-def ppt_to_xml(ppt_path: str, translate: bool = False) -> Optional[str]:
+def ppt_to_xml(ppt_path: str, translate: bool = False, source_lang: str = 'zh', target_lang: str = 'en') -> Optional[str]:
     """Convert PowerPoint to XML with intermediate saves."""
     root = ET.Element("presentation")
     base_dir = Path(ppt_path).parent
@@ -863,7 +888,7 @@ def ppt_to_xml(ppt_path: str, translate: bool = False) -> Optional[str]:
         root.set("file_path", os.path.basename(ppt_path))
         with ThreadPoolExecutor(max_workers=4) as executor:
             future_to_slide = {
-                executor.submit(extract_text_from_slide, slide, slide_number, translate): slide_number 
+                executor.submit(extract_text_from_slide, slide, slide_number, translate, source_lang, target_lang): slide_number 
                 for slide_number, slide in enumerate(prs.slides, 1)
             }
             for future in future_to_slide:
@@ -876,10 +901,10 @@ def ppt_to_xml(ppt_path: str, translate: bool = False) -> Optional[str]:
                     with open(intermediate_path, 'w', encoding='utf-8') as f:
                         f.write(xml_str)
                 except Exception as e:
-                    print(f"Error processing slide {slide_number}: {str(e)}")
+                    logger.error(f"Error processing slide {slide_number}: {str(e)}")
         return minidom.parseString(ET.tostring(root)).toprettyxml(indent="  ")
     except Exception as e:
-        print(f"Error processing presentation: {str(e)}")
+        logger.error(f"Error processing presentation: {str(e)}")
         return None
 
 def apply_properties_recursively(shapes, xml_slide, shape_path=""):
@@ -896,7 +921,7 @@ def apply_properties_recursively(shapes, xml_slide, shape_path=""):
                         table_data = json.loads(props_element.text)
                         apply_table_properties(shape.table, table_data)
                     except Exception as e:
-                        print(f"Error applying table properties: {str(e)}")
+                        logger.error(f"Error applying table properties: {str(e)}")
                         
         elif shape.shape_type == MSO_SHAPE_TYPE.PICTURE:
             image_element = xml_slide.find(f".//image_element[@shape_index='{current_path}']")
@@ -906,9 +931,9 @@ def apply_properties_recursively(shapes, xml_slide, shape_path=""):
                     try:
                         image_data = json.loads(props_element.text)
                         apply_image_properties(shape, image_data)
-                        print(f"Applied image properties to shape at path: {current_path}")
+                        logger.debug(f"Applied image properties to shape at path: {current_path}")
                     except Exception as e:
-                        print(f"Error applying image properties: {str(e)}")
+                        logger.error(f"Error applying image properties: {str(e)}")
                         
         elif shape.shape_type == MSO_SHAPE_TYPE.GROUP:
             # Recursively process shapes within the group
@@ -923,7 +948,7 @@ def apply_properties_recursively(shapes, xml_slide, shape_path=""):
                         shape_data = json.loads(props_element.text)
                         apply_shape_properties(shape, shape_data)
                     except Exception as e:
-                        print(f"Error applying shape properties: {str(e)}")
+                        logger.error(f"Error applying shape properties: {str(e)}")
 
 def create_translated_ppt(original_ppt_path, translated_xml_path, output_ppt_path):
     """Create a new PowerPoint with translated text."""
@@ -938,9 +963,9 @@ def create_translated_ppt(original_ppt_path, translated_xml_path, output_ppt_pat
             # Use recursive processing to handle nested shapes in groups
             apply_properties_recursively(slide.shapes, xml_slide, "")
         prs.save(output_ppt_path)
-        print(f"Translated PowerPoint saved to: {output_ppt_path}")
+        logger.info(f"Translated PowerPoint saved to: {output_ppt_path}")
     except Exception as e:
-        print(f"Error creating translated PowerPoint: {str(e)}")
+        logger.error(f"Error creating translated PowerPoint: {str(e)}")
 
 def clean_path(path: str) -> str:
     """Remove quotes and handle escaped spaces in path."""
@@ -949,21 +974,6 @@ def clean_path(path: str) -> str:
     path = path.replace("\\'", "'")
     return path
 
-def translate_text_with_cache(text: str) -> str:
-    """Translate text using a cache to avoid duplicate API calls."""
-    if not text or text.isspace():
-        return text
-    with cache_lock:
-        if text in translation_cache:
-            return translation_cache[text]
-    try:
-        translated = translate_text(text)
-        with cache_lock:
-            translation_cache[text] = translated
-        return translated
-    except Exception as e:
-        print(f"Translation error: {str(e)}")
-        return text
 
 def chunk_text(text: str, max_chunk_size: int = 1000) -> list[str]:
     """Split text into smaller chunks while preserving sentence boundaries."""
@@ -992,64 +1002,55 @@ def cleanup_intermediate_files(base_dir: Path, pattern: str = "slide_*.xml"):
         for file in base_dir.glob(pattern):
             file.unlink()
     except Exception as e:
-        print(f"Warning: Could not clean up intermediate files: {str(e)}")
+        logger.warning(f"Could not clean up intermediate files: {str(e)}")
 
 def process_ppt_file(ppt_path: Path, source_lang: str, target_lang: str):
     """Process a single PPT/PPTX file from XML extraction to final translation."""
     try:
         if not ppt_path.is_file():
-            print(f"Error: '{ppt_path}' is not a valid file.")
+            logger.error(f"'{ppt_path}' is not a valid file.")
             return
         if ppt_path.suffix.lower() not in ['.ppt', '.pptx']:
-            print(f"Error: '{ppt_path}' is not a PowerPoint file.")
+            logger.error(f"'{ppt_path}' is not a PowerPoint file.")
             return
 
         base_dir = ppt_path.parent
 
-        # Adjust global translate_text to use chosen source/target
-        global translate_text
-        original_translate_func = translate_text
-        translate_text = lambda text: original_translate_func(text, source_lang, target_lang)
-
         # Original XML
-        print(f"Generating original XML for {ppt_path.name}...")
-        original_xml = ppt_to_xml(str(ppt_path), translate=False)
+        logger.info(f"Generating original XML for {ppt_path.name}...")
+        original_xml = ppt_to_xml(str(ppt_path), translate=False, source_lang=source_lang, target_lang=target_lang)
         if original_xml:
             original_output_path = base_dir / f"{ppt_path.stem}_original.xml"
             with open(original_output_path, 'w', encoding='utf-8') as f:
                 f.write(original_xml)
-            print(f"Original XML saved: {original_output_path}")
+            logger.info(f"Original XML saved: {original_output_path}")
 
         # Translated XML
-        print(f"Generating translated XML (from {source_lang} to {target_lang}) for {ppt_path.name}...")
-        translated_xml = ppt_to_xml(str(ppt_path), translate=True)
+        logger.info(f"Generating translated XML (from {source_lang} to {target_lang}) for {ppt_path.name}...")
+        translated_xml = ppt_to_xml(str(ppt_path), translate=True, source_lang=source_lang, target_lang=target_lang)
         if translated_xml:
             translated_output_path = base_dir / f"{ppt_path.stem}_translated.xml"
             with open(translated_output_path, 'w', encoding='utf-8') as f:
                 f.write(translated_xml)
-            print(f"Translated XML saved: {translated_output_path}")
+            logger.info(f"Translated XML saved: {translated_output_path}")
 
             # Build final PPT
-            print(f"Creating translated PPT for {ppt_path.name}...")
+            logger.info(f"Creating translated PPT for {ppt_path.name}...")
             output_filename = f"{ppt_path.stem}_translated{ppt_path.suffix}"
             output_ppt_path = base_dir / output_filename
             create_translated_ppt(str(ppt_path), str(translated_output_path), str(output_ppt_path))
 
             # Cleanup
             cleanup_intermediate_files(base_dir)
-            print("Cleanup complete.")
-
-        # Restore original translate_text
-        translate_text = original_translate_func
+            logger.info("Cleanup complete.")
 
     except Exception as e:
-        print(f"Error in process_ppt_file for {ppt_path}: {str(e)}")
+        logger.error(f"Error in process_ppt_file for {ppt_path}: {str(e)}")
 
 def main():
     try:
-        print("=== PowerPoint Translator with OCR Support ===")
-        print(f"OCR Available: {'Yes' if OCR_AVAILABLE else 'No (install pytesseract, Pillow, opencv-python, numpy)'}")
-        print()
+        logger.info("=== PowerPoint Translator with OCR Support ===")
+        logger.info(f"OCR Available: {'Yes' if OCR_AVAILABLE else 'No (install pytesseract, Pillow, opencv-python, numpy)'}")
         
         path_input = input("Enter path to a PPTX file OR directory: ").strip()
         path_input = clean_path(path_input)
@@ -1057,45 +1058,37 @@ def main():
         source_lang = input("Enter source language code (default 'zh'): ").strip().lower() or 'zh'
         target_lang = input("Enter target language code (default 'en'): ").strip().lower() or 'en'
         
-        # OCR configuration
         if OCR_AVAILABLE:
-            ocr_enabled = input("Enable OCR for images? (y/n, default 'y'): ").strip().lower()
-            ocr_enabled = ocr_enabled != 'n'
-            
-            if ocr_enabled:
-                print("\nOCR Settings:")
-                print("- Text confidence threshold: 30%")
-                print("- Will extract text from images and translate it")
-                print("- Translated text will be overlaid back onto images")
+            logger.info("OCR Settings:")
+            logger.info("- Text confidence threshold: 30%")
+            logger.info("- Will extract text from images and translate it")
+            logger.info("- Translated text will be overlaid back onto images")
         else:
-            ocr_enabled = False
-            print("\nWarning: OCR libraries not installed. Image text will not be processed.")
+            logger.warning("OCR libraries not installed. Image text will not be processed.")
         
         target_path = Path(path_input).resolve()
 
         if target_path.is_dir():
-            print(f"\nProcessing directory: {target_path}")
-            # Recursively process all .ppt or .pptx
+            logger.info(f"Processing directory: {target_path}")
             for root, dirs, files in os.walk(target_path):
                 for file in files:
                     if file.lower().endswith(('.ppt', '.pptx')):
                         full_path = Path(root) / file
                         process_ppt_file(full_path, source_lang, target_lang)
         else:
-            print(f"\nProcessing file: {target_path}")
-            # Process single file
+            logger.info(f"Processing file: {target_path}")
             process_ppt_file(target_path, source_lang, target_lang)
         
-        print("\n=== Translation Complete ===")
+        logger.info("=== Translation Complete ===")
 
     except Exception as e:
-        print(f"Fatal error: {str(e)}")
+        logger.error(f"Fatal error: {str(e)}")
         sys.exit(1)
 
 def test_ocr_functionality():
     """Test OCR functionality with a sample image."""
     if not OCR_AVAILABLE:
-        print("OCR libraries not available for testing")
+        logger.warning("OCR libraries not available for testing")
         return False
     
     try:
